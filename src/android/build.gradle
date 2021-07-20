@@ -1,0 +1,96 @@
+android {
+  defaultConfig {
+    multiDexEnabled true
+  }
+}
+
+buildscript {
+    repositories {
+    google()
+    jcenter()
+    mavenCentral()
+  }
+  
+  dependencies {
+    //Dependencies for sdk
+    classpath 'com.google.gms:google-services:4.3.3'
+    classpath 'com.android.tools.build:gradle:3.5.2'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
+  }
+}
+
+
+repositories {
+  google()
+  mavenCentral()
+  maven {
+    url "https://maven.google.com"
+  }
+
+  //--------aqui Sdk------------- 
+   flatDir {
+     dirs 'src/main/libs'
+   }
+}
+
+apply plugin: com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsPlugin
+
+dependencies {
+
+  implementation 'com.android.support:appcompat-v7:28.0.0'
+  implementation 'com.android.support:support-v4:28.0.0'
+  implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'com.android.support.test:runner:1.0.1'
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+  implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
+  implementation 'com.google.firebase:firebase-auth:16.0.5'
+  implementation 'com.google.firebase:firebase-core:16.0.9'
+
+  //SDK UI
+  
+  // GSON
+  implementation 'com.google.code.gson:gson:2.8.5'
+  // Room
+  implementation 'android.arch.persistence.room:runtime:1.0.0'    
+  annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+  // OK Http
+  implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+  // Dynamic Animation
+  implementation 'com.android.support:support-dynamic-animation:28.0.0'
+  // Google Play library to obtain the Android ID
+  implementation 'com.google.android.gms:play-services-ads:16.0.0'
+  // Geofence Play library
+  implementation 'com.google.android.gms:play-services-location:16.0.0'
+  implementation('com.google.firebase:firebase-messaging:17.3.3') {
+        exclude group: 'org.json', module: 'json'
+    }
+  // IU AAR File
+  implementation(name: 'amlibrary-prod-release', ext: 'aar')
+
+  // Other
+  compile 'com.google.code.findbugs:jsr305:3.0.2'
+
+}
+
+android {
+
+  packagingOptions {
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+  }
+}
+
+cdvPluginPostBuildExtras.add({
+  //apply plugin: 'com.google.gms.google-services'
+   afterEvaluate {
+        rootProject.subprojects {
+            if (name == "app") {
+                if (!plugins.hasPlugin('com.google.gms.google-services')) {
+                    apply plugin: com.google.gms.googleservices.GoogleServicesPlugin
+                }
+            }
+        }
+    }
+})

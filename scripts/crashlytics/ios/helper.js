@@ -30,7 +30,15 @@ module.exports = {
      * (dSYMs) so that Crashlytics can display stack trace information in it's web console.
      */
   addShellScriptBuildPhase: function (context, xcodeProjectPath) {
+    //var xcode = context.requireCordovaModule("xcode"); aqui
+
+    let xcode;
+    if (cmpVersions(context.opts.cordova.version, '8.0.0') < 0) {
+      xcode = context.requireCordovaModule("xcode");
     var xcode = context.requireCordovaModule("xcode");
+    } else {
+      xcode = require('xcode');
+    }
 
     // Read and parse the XCode project (.pxbproj) from disk.
     // File format information: http://www.monobjc.net/xcode-project-file-format.html
@@ -39,7 +47,8 @@ module.exports = {
 
     // Build the body of the script to be executed during the build phase.
     // var script = '"' + '\\"${SRCROOT}\\"' + "/\\\"" + utilities.getAppName(context) + "\\\"/Plugins/" + utilities.getPluginId() + "/Fabric.framework/run" + '"';
-    var script = '"\\"${PODS_ROOT}/Fabric/run\\""';
+    //var script = '"\\"${PODS_ROOT}/Fabric/run\\""'; aqui
+    var script = '"' + '\\"${PODS_ROOT}/FirebaseCrashlytics/run\\"' + '"';
 
     // Generate a unique ID for our new build phase.
     var id = xcodeProject.generateUuid();
@@ -48,7 +57,7 @@ module.exports = {
           isa: "PBXShellScriptBuildPhase",
           buildActionMask: 2147483647,
           files: [],
-          inputPaths: [],
+          inputPaths: ['"' + '$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)' + '"'],//aqui
           name: comment,
           outputPaths: [],
           runOnlyForDeploymentPostprocessing: 0,
@@ -86,7 +95,15 @@ module.exports = {
      */
   removeShellScriptBuildPhase: function (context, xcodeProjectPath) {
 
+    //var xcode = context.requireCordovaModule("xcode"); aqui
+
+    let xcode;
+    if (cmpVersions(context.opts.cordova.version, '8.0.0') < 0) {
+      xcode = context.requireCordovaModule("xcode");
     var xcode = context.requireCordovaModule("xcode");
+    } else {
+      xcode = require('xcode');
+    }
 
     // Read and parse the XCode project (.pxbproj) from disk.
     // File format information: http://www.monobjc.net/xcode-project-file-format.html
@@ -140,5 +157,66 @@ module.exports = {
 
     // Finally, write the .pbxproj back out to disk.
     fs.writeFileSync(xcodeProjectPath, xcodeProject.writeSync());
+  },
+
+  ensureRunpathSearchPath: function (context, xcodeProjectPath) {
+    let xcode;
+    if (cmpVersions(context.opts.cordova.version, '8.0.0') < 0) {
+      xcode = context.requireCordovaModule("xcode");
+    } else {
+      xcode = require('xcode');
+    }
+
+    function addRunpathSearchBuildProperty(proj, build) {
+        let LD_RUNPATH_SEARCH_PATHS = proj.getBuildProperty("LD_RUNPATH_SEARCH_PATHS", build);
+
+        if (!Array.isArray(LD_RUNPATH_SEARCH_PATHS)) {
+            LD_RUNPATH_SEARCH_PATHS = [LD_RUNPATH_SEARCH_PATHS];
+        }
+
+        LD_RUNPATH_SEARCH_PATHS.forEach(LD_RUNPATH_SEARCH_PATH => {
+            if (!LD_RUNPATH_SEARCH_PATH) {
+                proj.addBuildProperty("LD_RUNPATH_SEARCH_PATHS", "\"$(inherited) @executable_path/Frameworks\"", build);
+            }
+            if (LD_RUNPATH_SEARCH_PATH.indexOf("@executable_path/Frameworks") == -1) {
+                var newValue = LD_RUNPATH_SEARCH_PATH.substr(0, LD_RUNPATH_SEARCH_PATH.length - 1);
+                newValue += ' @executable_path/Frameworks\"';
+                proj.updateBuildProperty("LD_RUNPATH_SEARCH_PATHS", newValue, build);
+            }
+            if (LD_RUNPATH_SEARCH_PATH.indexOf("$(inherited)") == -1) {
+                var newValue = LD_RUNPATH_SEARCH_PATH.substr(0, LD_RUNPATH_SEARCH_PATH.length - 1);
+                newValue += ' $(inherited)\"';
+                proj.updateBuildProperty("LD_RUNPATH_SEARCH_PATHS", newValue, build);
+            }
+        });
+    }
+
+    // Read and parse the XCode project (.pxbproj) from disk.
+    // File format information: http://www.monobjc.net/xcode-project-file-format.html
+    var xcodeProject = xcode.project(xcodeProjectPath);
+    xcodeProject.parseSync();
+
+    // Add search paths build property
+    addRunpathSearchBuildProperty(xcodeProject, "Debug");
+    addRunpathSearchBuildProperty(xcodeProject, "Release");
+
+    // Finally, write the .pbxproj back out to disk.
+    fs.writeFileSync(path.resolve(xcodeProjectPath), xcodeProject.writeSync());
   }
 };
+
+function cmpVersions (a, b) {
+  var i, diff;
+  var regExStrip0 = /(\.0+)+$/;
+  var segmentsA = a.replace(regExStrip0, '').split('.');
+  var segmentsB = b.replace(regExStrip0, '').split('.');
+  var l = Math.min(segmentsA.length, segmentsB.length);
+
+  for (i = 0; i < l; i++) {
+      diff = parseInt(segmentsA[i], 10) - parseInt(segmentsB[i], 10);
+      if (diff) {
+          return diff;
+      }
+  }
+  return segmentsA.length - segmentsB.length;
+}

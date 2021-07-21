@@ -35,7 +35,7 @@ module.exports = {
     let xcode;
     if (cmpVersions(context.opts.cordova.version, '8.0.0') < 0) {
       xcode = context.requireCordovaModule("xcode");
-    var xcode = context.requireCordovaModule("xcode");
+    //var xcode = context.requireCordovaModule("xcode");
     } else {
       xcode = require('xcode');
     }
@@ -100,7 +100,7 @@ module.exports = {
     let xcode;
     if (cmpVersions(context.opts.cordova.version, '8.0.0') < 0) {
       xcode = context.requireCordovaModule("xcode");
-    var xcode = context.requireCordovaModule("xcode");
+    //var xcode = context.requireCordovaModule("xcode");
     } else {
       xcode = require('xcode');
     }

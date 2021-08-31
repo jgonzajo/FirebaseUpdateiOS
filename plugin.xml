@@ -25,7 +25,7 @@
     <!--<hook type="before_plugin_install" src="scripts/configurations/unzipAndCopySound.js" />-->
 	  
     <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="overwrite">
-            <application android:allowBackup="false" android:name="co.acoustic.mobile.push.sdk.js.MceJsonApplication"/>
+            <application android:allowBackup="false" android:hardwareAccelerated="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:name="co.acoustic.mobile.push.sdk.js.MceJsonApplication" android:supportsRtl="true" />
         </edit-config>
 
     <config-file parent="/*" target="res/xml/config.xml">

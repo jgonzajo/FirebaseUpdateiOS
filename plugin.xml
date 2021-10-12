@@ -18,8 +18,10 @@
   <hook type="before_plugin_install" src="scripts/configurations/unzipAndCopyConfigurations.js" />
   <hook type="before_plugin_install" src="scripts/configurations/unzipAndCopySound.js" />
 
+  <!--
   <preference name="APP_DOMAIN" default="/" />
   <preference name="APP_PATH" default="/" />
+  -->
 
   <platform name="android">
     <!--<hook type="before_plugin_install" src="scripts/configurations/unzipAndCopySound.js" />-->
@@ -56,6 +58,7 @@
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+	<data android:host="pemientel.page.link" android:scheme="https"/>
 	<!--
         <data android:scheme="http" android:host="$APP_DOMAIN" android:pathPrefix="$APP_PATH"/>
         <data android:scheme="https" android:host="$APP_DOMAIN" android:pathPrefix="$APP_PATH"/>

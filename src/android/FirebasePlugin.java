@@ -96,7 +96,7 @@ public class FirebasePlugin extends CordovaPlugin {
     IUApp.launch(this.cordova.getActivity());
     this.cordova.getThreadPool().execute(new Runnable() {
       public void run() {
-        Log.d(TAG, "Starting Firebase plugin");
+        Log.d(TAG, "Starting Firebase plugin xD");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mAuth= FirebaseAuth.getInstance();
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
@@ -270,10 +270,11 @@ public class FirebasePlugin extends CordovaPlugin {
   public void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     final Bundle data = intent.getExtras();
+	  Log.d(TAG, "onNewIntent ready 1");
     if (this.dynamicLinkCallback != null) {
       respondWithDynamicLink(intent);
       ////New Log
-	    Log.d(TAG, "onNewIntent ready");
+	    Log.d(TAG, "onNewIntent ready 2");
     }
     if (data != null && data.containsKey("google.message_id")) {
       data.putBoolean("tap", true);

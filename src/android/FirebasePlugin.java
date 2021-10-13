@@ -272,6 +272,8 @@ public class FirebasePlugin extends CordovaPlugin {
     final Bundle data = intent.getExtras();
     if (this.dynamicLinkCallback != null) {
       respondWithDynamicLink(intent);
+      ////New Log
+	    Log.d(TAG, "onNewIntent ready");
     }
     if (data != null && data.containsKey("google.message_id")) {
       data.putBoolean("tap", true);
@@ -559,6 +561,9 @@ public class FirebasePlugin extends CordovaPlugin {
                 dynamicLinkCallback.sendPluginResult(pluginResult);
 
                 doOnDynamicLink(deepLink.toString());
+		      
+		////New Log
+		      Log.d(TAG, "Has deepLink respondWithDynamicLink " + deepLink.toString());
               } catch (JSONException e) {
                 Log.e(TAG, "Fail to handle dynamic link data", e);
               }
@@ -574,6 +579,8 @@ public class FirebasePlugin extends CordovaPlugin {
       public void run() {
         String method = String.format("javascript:window.fp.dynamicLinkCallback( '%s' );", dynamicLink );;
         webView.loadUrl(method);
+	      ///New Log
+	      Log.d(TAG, "Has deepLink doOnDynamicLink " + method);
       }
     });
   }

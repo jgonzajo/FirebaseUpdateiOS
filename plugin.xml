@@ -62,12 +62,12 @@
       </intent-filter>
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
-      <service android:name="org.apache.cordova.firebase.FirebasePluginMessagingService">
+      <service android:exported="true" android:name="org.apache.cordova.firebase.FirebasePluginMessagingService">
         <intent-filter>
           <action android:name="com.google.firebase.MESSAGING_EVENT"/>
         </intent-filter>
       </service>
-      <service android:name="org.apache.cordova.firebase.FirebasePluginInstanceIDService">
+      <service android:exported="true" android:name="org.apache.cordova.firebase.FirebasePluginInstanceIDService">
         <intent-filter>
           <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
         </intent-filter>
@@ -136,7 +136,6 @@
     <header-file src="src/ios/FirebasePlugin.h" />
     <source-file src="src/ios/FirebasePlugin.m" />
     <!--<header-file src="src/ios/Firebase/Firebase.h" />
-
     <framework src="Fabric" type="podspec" spec="~> 1.9" />
     <framework src="Crashlytics" type="podspec" spec="~> 3.12" />
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2" />

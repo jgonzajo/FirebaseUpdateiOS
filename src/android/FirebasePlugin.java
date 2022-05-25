@@ -854,7 +854,7 @@ public class FirebasePlugin extends CordovaPlugin {
       }
     });
   }
-
+/*
   //
   // Remote Configuration
   //
@@ -1002,7 +1002,7 @@ public class FirebasePlugin extends CordovaPlugin {
     }
     return map;
   }
-
+*/
 
   /////////////////////
   // Authentication //

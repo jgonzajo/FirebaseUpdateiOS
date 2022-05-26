@@ -169,8 +169,8 @@ public class FirebasePlugin extends CordovaPlugin {
       //this.activateFetched(callbackContext);
       return true;
     } else if (action.equals("fetch")) {
-      if (args.length() > 0) this.fetch(callbackContext, args.getLong(0));
-      else this.fetch(callbackContext);
+      //if (args.length() > 0) this.fetch(callbackContext, args.getLong(0));
+      //else this.fetch(callbackContext);
       return true;
     } else if (action.equals("getValue")) {
       if (args.length() > 1) this.getValue(callbackContext, args.getString(0), args.getString(1));

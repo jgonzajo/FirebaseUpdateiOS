@@ -137,12 +137,48 @@
         <param name="onload" value="true" />
       </feature>
     </config-file>
+	  
+	  
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+			<array>
+				<dict>
+					<key>CFBundleURLSchemes</key>
+					<array>
+						<string>com.entel.movil</string>
+					</array>
+				</dict>
+			</array>
+	</config-file>
+    
+    
+    <config-file parent="aps-environment" target="*/Entitlements-Debug.plist">
+      <string>development</string>
+    </config-file>
+    
+    <config-file parent="com.apple.developer.associated-domains" target="*/Entitlements-Debug.plist">
+			<array>
+				<string>applinks:com.entel.movil</string>
+			</array>
+	</config-file>
+    
+    <config-file parent="aps-environment" target="*/Entitlements-Release.plist">
+      <string>production</string>
+    </config-file>
+    
+    <config-file parent="com.apple.developer.associated-domains" target="*/Entitlements-Release.plist">
+			<array>
+				<string>applinks:com.entel.movil</string>
+			</array>
+	</config-file>
+	  
+    <!--
     <config-file parent="aps-environment" target="*/Entitlements-Debug.plist">
       <string>development</string>
     </config-file>
     <config-file parent="aps-environment" target="*/Entitlements-Release.plist">
       <string>production</string>
     </config-file>
+    -->
 
     <resource-file src="GoogleService-Info.plist" target="./GoogleService-Info.plist" />
 

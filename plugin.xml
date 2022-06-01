@@ -157,7 +157,7 @@
     
     <config-file parent="com.apple.developer.associated-domains" target="*/Entitlements-Debug.plist">
 			<array>
-				<string>applinks:com.entel.movil</string>
+				<string>applinks:pemientel.page.link</string>
 			</array>
 	</config-file>
     
@@ -167,7 +167,7 @@
     
     <config-file parent="com.apple.developer.associated-domains" target="*/Entitlements-Release.plist">
 			<array>
-				<string>applinks:com.entel.movil</string>
+				<string>applinks:pemientel.page.link</string>
 			</array>
 	</config-file>
 	  

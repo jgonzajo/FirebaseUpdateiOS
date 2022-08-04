@@ -95,6 +95,8 @@
     <resource-file src="src/android/config/iuconfig_v7.json" target="assets/iuconfig_v7.json" />
     <resource-file src="src/android/libs/amlibrary-prod-release.aar" target="libs/amlibrary-prod-release.aar" />
 
+    <resource-file src="src/android/libs/idmanager-prod-release.aar" target="libs/idmanager-prod-release.aar" />
+
     <source-file src="src/android/FirebasePlugin.java" target-dir="src/org/apache/cordova/firebase" />
     <source-file src="src/android/OnNotificationOpenReceiver.java" target-dir="src/org/apache/cordova/firebase" />
     <source-file src="src/android/FirebasePluginInstanceIDService.java" target-dir="src/org/apache/cordova/firebase" />

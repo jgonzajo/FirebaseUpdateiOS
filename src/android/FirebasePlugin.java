@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationManagerCompat;
+
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -35,6 +34,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationManagerCompat;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;

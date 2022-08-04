@@ -32,6 +32,13 @@
         <param name="onload" value="true" />
       </feature>
     </config-file>
+
+    <config-file parent="/*" target="res/xml/config.xml">
+          <feature name="amlibrary">
+              <param name="android-package" value="com.iu.amlibrary.amlibrary" />
+              <param name="onload" value="true" />
+          </feature>
+      </config-file>
     
     <config-file target="AndroidManifest.xml" parent="/*">
       <uses-permission android:name="android.permission.INTERNET" />
@@ -84,6 +91,7 @@
     
     <!--Resources for IU SDK-->
     <resource-file src="iu-proguard.txt" target="iu-proguard.txt"/>
+    <resource-file src="src/android/drconfig.json" target="assets/drconfig.json" />
     <resource-file src="src/android/config/iuconfig_v7.json" target="assets/iuconfig_v7.json" />
     <resource-file src="src/android/libs/amlibrary-prod-release.aar" target="libs/amlibrary-prod-release.aar" />
 
@@ -110,6 +118,7 @@
     <framework src="com.google.firebase:firebase-auth:21.0.4"/>
     <framework src="com.google.firebase:firebase-crashlytics:18.2.10" />	  
 	  
+    <resource-file src="src/android/colors.xml" target="res/values/colors.xml" />
 	  
 <!--
     <framework src="com.google.gms:google-services:4.3.3" />

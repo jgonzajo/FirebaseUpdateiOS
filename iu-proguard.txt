@@ -1,8 +1,9 @@
 -keepattributes Signature
 -keepattributes InnerClasses
 -keepclassmembers enum * {
-public static **[] values(); public static ** valueOf(java.lang.String);
+    public static **[] values(); public static ** valueOf(java.lang.String);
 }
+
 -keep class amazonia.iu.com.amlibrary.client.IUConfig { *; }
 -keep class amazonia.iu.com.amlibrary.data.** { *; }
 -keep class amazonia.iu.com.amlibrary.dto.** { *; }

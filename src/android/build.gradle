@@ -3,6 +3,9 @@ android {
     multiDexEnabled true
   }
 
+}
+
+android {
   repositories {
     flatDir {
       dirs 'libs'
@@ -43,7 +46,7 @@ apply plugin: com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsPlugi
 
 dependencies {
 
-  implementation 'com.android.support:appcompat-v7:28.0.0'
+  //implementation 'com.android.support:appcompat-v7:28.0.0'
   implementation 'com.android.support:support-v4:28.0.0'
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
   testImplementation 'junit:junit:4.12'
@@ -55,6 +58,8 @@ dependencies {
   implementation 'com.google.firebase:firebase-core:16.0.9'
 
   //SDK UI
+  implementation 'androidx.appcompat:appcompat:1.4.1'
+  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   implementation 'androidx.room:room-runtime:2.0.0'
   annotationProcessor 'androidx.room:room-compiler:2.0.0'
@@ -99,6 +104,7 @@ dependencies {
     }*/
   // IU AAR File
   implementation(name: 'amlibrary-prod-release', ext: 'aar')
+  implementation(name: 'idmanager-prod-release', ext:'aar')
 
   // Other
   implementation 'com.google.code.findbugs:jsr305:3.0.2'

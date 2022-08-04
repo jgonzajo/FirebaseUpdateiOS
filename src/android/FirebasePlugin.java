@@ -96,7 +96,8 @@ public class FirebasePlugin extends CordovaPlugin {
   protected void pluginInitialize() {
     final Context context = this.cordova.getActivity().getApplicationContext();
     final Bundle extras = this.cordova.getActivity().getIntent().getExtras();
-    IUApp.launch(this.cordova.getActivity());
+    IUApp.init(this.cordova.getActivity().getApplication(), FirebasePlugin.class);
+    IUApp.launch(this.cordova.getContext());
     this.cordova.getThreadPool().execute(new Runnable() {
       public void run() {
         Log.d(TAG, "Starting Firebase plugin xD");
